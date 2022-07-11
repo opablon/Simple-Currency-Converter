@@ -1,0 +1,45 @@
+//Write your code here
+const input = require('sync-input');
+const currencies = {USD: 1.0, JPY: 113.5, EUR: 0.89, RUB: 74.36, GBP: 0.75};
+
+console.log("Welcome to Currency Converter!");
+
+for (const each in currencies) {
+  console.log(`1 USD equals  ${currencies[each]} ${each}`);
+}
+
+while (true) {
+    console.log("What do you want to do?");
+    console.log("1-Convert currencies 2-Exit program");
+    let command = Number(input());
+    if (command === 1) {
+      console.log("What do you want to convert?");
+      let currency = input("From:");
+      currency = currency.toUpperCase();
+      if (currencies.hasOwnProperty(currency) != true) { 
+        console.log("Unknown currency");
+      } else {
+        let currencyToConvert = input("To:");
+        currencyToConvert = currencyToConvert.toUpperCase();
+        if (currencies.hasOwnProperty(currencyToConvert) != true) { 
+          console.log("Unknown currency");
+        } else {
+          let amount = input("Amount:");
+          if (isNaN(amount)) {
+            console.log("The amount has to be a number");
+          } else if (amount < 1) {
+            console.log("The amount can not be less than 1");
+          } else {
+            let result = ((currencies[currencyToConvert] / currencies[currency]) * amount).toFixed(4);
+            console.log(`Result: ${amount} ${currency} equals ${result} ${currencyToConvert}`);
+          }
+        }
+      }
+    } else if (command === 2) {
+      console.log("Have a nice day!");
+      break;
+    } else {
+      console.log("Unknown input");
+      continue;
+    }
+};
